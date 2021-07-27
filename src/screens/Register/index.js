@@ -5,7 +5,7 @@ import RegisterComponent from './../../components/Register/index';
 import envs from '../../config/env';
 import axios from './../../helpers/axiosInterceptor';
 import {GlobalContext} from './../../context/Provider';
-import register, { clearAuthState } from '../../context/actions/auth/register';
+import register, {clearAuthState} from '../../context/actions/auth/register';
 import {LOGIN} from './../../constants/routeNames';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 
@@ -18,16 +18,10 @@ const Register = () => {
   } = useContext(GlobalContext);
   const {navigate} = useNavigation();
 
-  useEffect(() => {
-    if (data) {
-      navigate(LOGIN);
-    }
-  }, [data]);
-
   useFocusEffect(
     React.useCallback(() => {
-      if(data || error) {
-        clearAuthState()(authDispatch)
+      if (data || error) {
+        clearAuthState()(authDispatch);
       }
     }, [data, error]),
   );
@@ -93,7 +87,9 @@ const Register = () => {
       Object.values(form).every(item => item.trim().length > 0) &&
       Object.values(errors).every(item => !item)
     ) {
-      register(form)(authDispatch);
+      register(form)(authDispatch)(response => {
+        navigate(LOGIN, {data: response});
+      });
     }
   };
 

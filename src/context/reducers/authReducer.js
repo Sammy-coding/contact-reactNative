@@ -7,16 +7,12 @@ import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOGIN_LOADING,
+  LOGOUT_USER,
 } from './../../constants/actionTypes/index';
 
 const authReducer = (state, {type, payload}) => {
   switch (type) {
     case REGISTER_LOADING:
-      return {
-        ...state,
-        loading: true,
-      };
-
     case LOGIN_LOADING:
       return {
         ...state,
@@ -30,6 +26,13 @@ const authReducer = (state, {type, payload}) => {
         loading: false,
       };
 
+    case LOGOUT_USER:
+      return {
+        ...state,
+        isLoggedIn: false,
+        data: null,
+      };
+
     case LOGIN_SUCCESS:
       return {
         ...state,
@@ -39,12 +42,6 @@ const authReducer = (state, {type, payload}) => {
       };
 
     case REGISTER_FAIL:
-      return {
-        ...state,
-        loading: false,
-        error: payload,
-      };
-
     case LOGIN_FAIL:
       return {
         ...state,

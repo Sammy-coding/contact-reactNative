@@ -1,16 +1,24 @@
-import React from 'react';
-import {Text, View, Image} from 'react-native';
+import React, {useState} from 'react';
+import {Text, View, Image, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import Input from './../common/Input/index';
 import Container from './../common/index';
 import CustomButton from './../common/CustomButton/index';
 import styles from './styles';
 import {REGISTER} from '../../constants/routeNames';
 import Message from '../common/Message';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
-const LoginComponent = ({onSubmit, onChange, form, error, loading}) => {
-  const navigate = useNavigation();
+const LoginComponent = ({
+  onSubmit,
+  onChange,
+  form,
+  error,
+  loading,
+  justSignedIn,
+}) => {
+  const {navigate} = useNavigation();
+  const [isSecure, setIsSecure] = useState(true);
 
   return (
     <Container>
@@ -26,6 +34,13 @@ const LoginComponent = ({onSubmit, onChange, form, error, loading}) => {
         <Text style={styles.subtitle}>Please LogIn</Text>
 
         <View style={styles.form}>
+          {justSignedIn && (
+            <Message
+              success
+              onDismiss={() => {}}
+              message="Account created successfully"
+            />
+          )}
           {error && !error.error && (
             <Message
               danger
@@ -39,6 +54,7 @@ const LoginComponent = ({onSubmit, onChange, form, error, loading}) => {
             label="Username"
             iconPosition="right"
             placeholder="enter username"
+            value={form.userName || null}
             onChangeText={value => {
               onChange({name: 'userName', value});
             }}
@@ -47,8 +63,12 @@ const LoginComponent = ({onSubmit, onChange, form, error, loading}) => {
           <Input
             label="Password"
             placeholder="Enter password"
-            icon={<Text>SHOW</Text>}
-            secureTextEntry={true}
+            icon={
+              <TouchableOpacity onPress={() => setIsSecure(prev => !prev)}>
+                <Text>{isSecure ? 'SHOW' : 'HIDE'}</Text>
+              </TouchableOpacity>
+            }
+            secureTextEntry={isSecure}
             iconPosition="right"
             onChangeText={value => {
               onChange({name: 'password', value});
