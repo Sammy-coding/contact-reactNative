@@ -11,7 +11,7 @@ export default () => dispatch => {
   });
 
   axios
-    .get('/contacts')
+    .get('/contacts/')
     .then(response => {
       dispatch({
         type: GET_CONTACTS_SUCCESS,

@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, ActivityIndicator} from 'react-native';
 import colors from '../../../assets/theme/colors';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const CustomButton = ({
   title,
@@ -34,7 +34,11 @@ const CustomButton = ({
       onPress={onPress}
       style={[styles.wrapper, style, {backgroundColor: getBackgroundColor()}]}>
       <View style={[styles.loaderSection]}>
-        {loading && <ActivityIndicator color={primary ? color.secondary : colors.primary} />}
+        {loading && (
+          <ActivityIndicator
+            color={primary ? color.secondary : colors.primary}
+          />
+        )}
 
         {title && (
           <Text
@@ -42,7 +46,7 @@ const CustomButton = ({
               color: disabled ? 'black' : colors.white,
               paddingLeft: loading ? 5 : 0,
             }}>
-            {title}
+            {loading ? 'please wait' : title}
           </Text>
         )}
       </View>
