@@ -29,7 +29,7 @@ const Settings = () => {
     {title: 'Name format', subTitle: 'First name', onPress: () => {}},
     {
       title: 'SortBy',
-      subTitle: 'First name',
+      subTitle: sortBy,
       onPress: () => {
         setModalVisible(true);
       },
@@ -42,16 +42,20 @@ const Settings = () => {
   const prefArr = [
     {
       name: 'First Name',
-      selected: false,
+      selected: sortBy === "First Name",
       onPress: () => {
         saveSetting('sortBy', 'First Name');
+        setSortBy('First Name');
+        setModalVisible(false);
       },
     },
     {
       name: 'Last Name',
-      selected: false,
+      selected: sortBy === "Last Name",
       onPress: () => {
         saveSetting('sortBy', 'Last Name');
+        setSortBy('Last Name');
+        setModalVisible(false);
       },
     },
   ];

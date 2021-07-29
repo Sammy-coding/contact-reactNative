@@ -9,7 +9,7 @@ const SettingsComponent = ({
   settingsOptions,
   modalVisible,
   setModalVisible,
-  prefArr
+  prefArr,
 }) => {
   return (
     <>
@@ -18,14 +18,25 @@ const SettingsComponent = ({
         setModalVisible={setModalVisible}
         closedOnTouchOutside={false}
         title="Sort by"
-        modalBody={<View>
+        modalBody={
+          <View>
             {prefArr.map((name, onPress, selected, index) => (
-                <TouchableOpacity key={name} onPress={onPress} style={{flexDirection:'row', alignItems: 'center'}}>
-                    {selected && <Icon name="check" size={17} />}
-                    <Text style={{fontSize: 17, paddingLeft:15}}>{name}</Text>
-                </TouchableOpacity>
+              <TouchableOpacity
+                key={name}
+                onPress={onPress}
+                style={{
+                  flexDirection: 'row',
+                  paddingVertical: 5,
+                  alignItems: 'center',
+                }}>
+                {selected && <Icon name="check" size={17} />}
+                <Text style={{fontSize: 17, paddingLeft: selected ? 15 : 30}}>
+                  {name}
+                </Text>
+              </TouchableOpacity>
             ))}
-        </View>}
+          </View>
+        }
         modalFooter={<></>}
       />
       <ScrollView style={{backgroundColor: colors.white}}>

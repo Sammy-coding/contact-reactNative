@@ -81,13 +81,6 @@ const ContactsComponents = ({modalVisible, setModalVisible, data, loading}) => {
           setModalVisible(true);
         }}
       /> */}
-        <AppModal
-          modalFooter={<View></View>}
-          modalBody={<View></View>}
-          title="my profile"
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
-        />
 
         {loading && (
           <View style={{paddingVertical: 100, paddingHorizontal: 100}}>
